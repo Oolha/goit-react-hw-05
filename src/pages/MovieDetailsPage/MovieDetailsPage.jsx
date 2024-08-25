@@ -1,9 +1,10 @@
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import { useLocation, useParams, Link, Outlet } from "react-router-dom";
 import axios from "axios";
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
   const [movieDetails, setMovieDetails] = useState(null);
+  const location = useLocation();
 
   useEffect(() => {
     const fetchMoviesDetails = async () => {
@@ -17,12 +18,27 @@ const MovieDetailsPage = () => {
     };
     fetchMoviesDetails();
   }, [movieId]);
+
+  const backLinkRef = useRef(location.state?.from ?? "/movies");
+
   return (
     <div>
       {movieDetails && (
         <div>
+          <Link to={backLinkRef.current}>⬅ Go back</Link>;
+          <div>
+            <img
+              src={`https://image.tmdb.org/t/p/w500${movieDetails.poster_path}`}
+              alt={movieDetails.title}
+            />
+          </div>
           <h1>{movieDetails.title}</h1>
           <p>{movieDetails.overview}</p>
+          <div>
+            <p>Additional information</p>
+            <Link to="cast">Cast</Link>
+          </div>
+          <Outlet />
         </div>
       )}
     </div>
