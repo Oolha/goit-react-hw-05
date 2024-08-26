@@ -1,9 +1,11 @@
 import { useEffect, useState, useRef } from "react";
 import { useLocation, useParams, Link, Outlet } from "react-router-dom";
 import axios from "axios";
+import css from "./MovieDetailsPage.module.css";
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
   const [movieDetails, setMovieDetails] = useState(null);
+  const [error, setError] = useState(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -13,7 +15,7 @@ const MovieDetailsPage = () => {
 
         setMovieDetails(data);
       } catch (error) {
-        console.log("error");
+        setError("Failed to load movie details. Please try again later.");
       }
     };
     fetchMoviesDetails();
@@ -23,21 +25,35 @@ const MovieDetailsPage = () => {
 
   return (
     <div>
-      {movieDetails && (
+      <Link to={backLinkRef.current}>⬅ Go back</Link>
+      {error && <p>{error}</p>}
+      {movieDetails && !error && (
         <div>
-          <Link to={backLinkRef.current}>⬅ Go back</Link>;
-          <div>
+          <div className={css.box}>
             <img
               src={`https://image.tmdb.org/t/p/w500${movieDetails.poster_path}`}
               alt={movieDetails.title}
+              className={css.img}
             />
+
+            <div className={css.boxOverview}>
+              <h3>
+                {movieDetails.title}({movieDetails.release_date})
+              </h3>
+              <h4>Genres:</h4>
+              <p>{movieDetails.genres.map((genre) => genre.name).join(", ")}</p>
+
+              <h4>Overveiw:</h4>
+              <p>{movieDetails.overview}</p>
+            </div>
           </div>
-          <h1>{movieDetails.title}</h1>
-          <p>{movieDetails.overview}</p>
-          <div>
+
+          <div className={css.info}>
             <p>Additional information</p>
             <Link to="cast">Cast</Link>
+            <Link to="reviews">Reviews</Link>
           </div>
+
           <Outlet />
         </div>
       )}

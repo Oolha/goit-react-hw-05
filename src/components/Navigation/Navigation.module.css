@@ -1,0 +1,21 @@
+.link {
+  text-decoration: none;
+  transition: all 0.3s;
+  float: left;
+  display: block;
+  color: inherit;
+  text-align: center;
+  padding: 14px 16px;
+}
+
+.active {
+  color: rgb(136, 56, 56);
+}
+
+.nav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #e5d4d4;
+}

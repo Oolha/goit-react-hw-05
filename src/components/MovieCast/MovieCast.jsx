@@ -27,18 +27,15 @@ const MovieCast = () => {
   }, [movieId]);
 
   return (
-    <div>
-      <h2>Cast</h2>
-      <ul>
-        {cast.map((actor) => (
-          <li key={actor.cast_id}>
-            <p>
-              <strong>{actor.name}</strong> as {actor.character}
-            </p>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ul>
+      {cast.map((actor) => (
+        <li key={actor.cast_id}>
+          <p>
+            <strong>{actor.name}</strong> as {actor.character}
+          </p>
+        </li>
+      ))}
+    </ul>
   );
 };
 

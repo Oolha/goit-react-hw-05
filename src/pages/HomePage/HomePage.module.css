@@ -1,0 +1,12 @@
+.box {
+  display: flex;
+  flex-direction: column;
+  color: #120707;
+}
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 0;
+  padding: 0;
+}

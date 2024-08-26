@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import css from "./HomePage.module.css";
 const HomePage = () => {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
@@ -26,12 +27,12 @@ const HomePage = () => {
     fetchMovies();
   }, []);
   return (
-    <div>
-      <h1>Trending Movies</h1>
+    <div className={css.box}>
+      <h3 className={css.title}>Trending Movies</h3>
       {error ? (
         <p>{error}</p>
       ) : (
-        <ul>
+        <ul className={css.list}>
           {movies.map((movie) => (
             <Link to={`/movies/${movie.id}`} key={movie.id}>
               {movie.title}
