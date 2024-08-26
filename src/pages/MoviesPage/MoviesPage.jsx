@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import axios from "axios";
 import css from "./MoviePage.module.css";
+import MovieList from "../../components/MovieList/MovieList";
 
 const MoviesPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -64,17 +65,7 @@ const MoviesPage = () => {
       {isLoading && <div>Loading...</div>}
       {error && <div>Error: {error}</div>}
 
-      {!isLoading && !error && (
-        <ul>
-          {movies.map((movie) => (
-            <li key={movie.id}>
-              <Link to={`/movies/${movie.id}`}>
-                {movie.title} ({movie.release_date?.split("-")[0]})
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
+      {!isLoading && !error && <MovieList movies={movies} />}
 
       {!isLoading && !error && movies.length === 0 && searchQuery && (
         <div>No movies found for "{searchQuery}"</div>
