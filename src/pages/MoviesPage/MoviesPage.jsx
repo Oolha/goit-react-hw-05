@@ -13,11 +13,6 @@ const MoviesPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    if (searchQuery) {
-      searchMovies(searchQuery);
-    }
-  }, [searchQuery]);
   const searchMovies = async (query) => {
     setIsLoading(true);
     setError(null);
